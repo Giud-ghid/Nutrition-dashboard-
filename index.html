@@ -4,85 +4,102 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Diario Nutrizionale</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:#f4f3f0;font-family:'Courier New',Courier,monospace;color:#1a1916;min-height:100vh;font-size:13px}
-header{background:#1a1916;color:#f4f3f0;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
-header h1{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
-.meta{font-size:11px;color:#888780;display:flex;align-items:center;gap:12px}
-.dot{width:7px;height:7px;border-radius:50%;background:#1d9e75;display:inline-block;flex-shrink:0}
-.dot.off{background:#ba7517}
-.rbtn{padding:4px 12px;border:1px solid #444441;background:transparent;border-radius:4px;font-size:11px;cursor:pointer;color:#888780;font-family:inherit}
-.rbtn:hover{border-color:#888780;color:#f4f3f0}
+body{background:#f5f5f5;font-family:'JetBrains Mono',monospace;color:#2d2d2d;min-height:100vh;font-size:13px}
+
+header{background:#2d2d2d;color:#fff;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+header h1{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.meta{font-size:11px;color:#999;display:flex;align-items:center;gap:10px}
+.dot{width:7px;height:7px;border-radius:50%;background:#3aab7b;display:inline-block;flex-shrink:0}
+.dot.off{background:#e09a3a}
+.rbtn{padding:4px 12px;border:1px solid rgba(255,255,255,0.3);background:transparent;border-radius:4px;font-size:11px;cursor:pointer;color:#fff;font-family:inherit;letter-spacing:.03em}
+.rbtn:hover{border-color:rgba(255,255,255,0.7)}
+
 main{max-width:720px;margin:0 auto;padding:20px 16px}
 
 /* setup */
-#setup{background:#fff;border:1px solid #d3d1c7;border-radius:8px;padding:28px 20px;text-align:center;margin-bottom:20px}
-#setup h2{font-size:14px;font-weight:700;margin-bottom:8px;letter-spacing:.05em}
-#setup p{color:#6b6a65;font-size:12px;margin-bottom:20px;line-height:1.6}
+#setup{background:#fff;border:0.5px solid #e0e0e0;border-radius:8px;padding:28px 20px;text-align:center;margin-bottom:20px}
+#setup h2{font-size:13px;font-weight:700;margin-bottom:8px;letter-spacing:.08em;text-transform:uppercase}
+#setup p{color:#999;font-size:12px;margin-bottom:20px;line-height:1.6}
 .irow{display:flex;gap:8px;max-width:500px;margin:0 auto}
-#apiurl{flex:1;padding:8px 12px;border:1px solid #d3d1c7;border-radius:4px;font-size:12px;font-family:inherit;background:#f4f3f0;color:#1a1916}
-.cbtn{padding:8px 16px;background:#1a1916;color:#f4f3f0;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:.05em;white-space:nowrap}
-.cbtn:hover{background:#444441}
+#apiurl{flex:1;padding:8px 12px;border:0.5px solid #e0e0e0;border-radius:4px;font-size:12px;font-family:inherit;background:#f5f5f5;color:#2d2d2d}
+.cbtn{padding:8px 16px;background:#2d2d2d;color:#fff;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:.06em;white-space:nowrap}
+.cbtn:hover{background:#444}
 
-/* loading/error */
-#loading{display:none;text-align:center;padding:40px;color:#6b6a65;font-size:12px}
-.spin{width:22px;height:22px;border:2px solid #d3d1c7;border-top-color:#1d9e75;border-radius:50%;animation:sp .7s linear infinite;margin:0 auto 12px}
+#loading{display:none;text-align:center;padding:40px;color:#999;font-size:12px}
+.spin{width:22px;height:22px;border:2px solid #e0e0e0;border-top-color:#3aab7b;border-radius:50%;animation:sp .7s linear infinite;margin:0 auto 12px}
 @keyframes sp{to{transform:rotate(360deg)}}
-#errmsg{display:none;background:#fcebeb;border:1px solid #f09595;border-radius:6px;padding:12px 16px;margin-bottom:16px;color:#791f1f;font-size:12px;line-height:1.6}
+#errmsg{display:none;background:#fdf0f0;border:0.5px solid #e05c5c;border-radius:6px;padding:12px 16px;margin-bottom:16px;color:#c0392b;font-size:12px;line-height:1.6}
 
-/* dashboard */
 #dash{display:none}
 
 /* sezione */
-.sec{background:#fff;border:1px solid #d3d1c7;border-radius:8px;padding:0;margin-bottom:14px;overflow:hidden}
-.sec-hdr{background:#f4f3f0;border-bottom:1px solid #d3d1c7;padding:10px 16px;display:flex;align-items:baseline;justify-content:space-between}
-.sec-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#1a1916}
-.sec-sub{font-size:10px;color:#888780}
+.sec{background:#fff;border:0.5px solid #e0e0e0;border-radius:8px;margin-bottom:14px;overflow:hidden}
+.sec-hdr{background:#f5f5f5;border-bottom:1px solid #e0e0e0;padding:10px 16px;display:flex;align-items:center;justify-content:space-between}
+.sec-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#2d2d2d}
+.sec-sub{font-size:10px;color:#999}
+.date-box{background:#2d2d2d;color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:4px;letter-spacing:.05em;text-transform:uppercase}
 .sec-body{padding:16px}
 
-/* tabella nutrienti */
-.ntbl{width:100%;border-collapse:collapse}
-.ntbl-hdr{display:grid;grid-template-columns:110px 1fr 60px 60px 50px;gap:0;padding:0 0 8px 0;border-bottom:1px solid #d3d1c7;margin-bottom:8px}
-.ntbl-hdr span{font-size:10px;color:#888780;letter-spacing:.06em;text-transform:uppercase}
-.ntbl-hdr span:not(:first-child){text-align:right}
-.nrow{display:grid;grid-template-columns:110px 1fr 60px 60px 50px;gap:0;align-items:center;padding:5px 0;border-bottom:1px solid #f4f3f0}
-.nrow:last-child{border-bottom:none}
-.nrow.group-sep{border-top:1px solid #d3d1c7;margin-top:4px;padding-top:8px}
-.nlabel{font-size:12px;color:#444441}
-.nbar-wrap{height:4px;background:#f4f3f0;border-radius:2px;overflow:hidden;margin:0 8px}
-.nbar{height:100%;border-radius:2px;transition:width .4s}
-.nval{font-size:12px;font-weight:700;text-align:right}
-.npct{font-size:11px;text-align:right;color:#888780}
-.ntrend{font-size:13px;text-align:right;font-weight:700}
+/* box macro daily */
+.macro-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-bottom:16px}
+.mbox{background:#fff;border:0.5px solid #e0e0e0;border-radius:8px;padding:12px}
+.mbox-label{font-size:9px;color:#999;letter-spacing:.05em;margin-bottom:6px}
+.mbox-val{font-size:26px;font-weight:700;letter-spacing:-.02em;line-height:1}
+.mbox-bar{height:3px;background:#f0f0f0;border-radius:2px;margin-top:10px}
+.mbox-fill{height:100%;border-radius:2px}
+.mbox-pct{font-size:10px;font-weight:700;margin-top:4px}
 
-/* colori stato */
-.c-ok{color:#0f6e56}.c-hi{color:#854f0b}.c-lo{color:#791f1f}.c-mid{color:#ba7517}
-.b-ok{background:#1d9e75}.b-hi{background:#ba7517}.b-lo{background:#a32d2d}.b-mid{background:#ef9f27}
+/* colori semaforo */
+.c-lo{color:#e05c5c}.c-mid{color:#e09a3a}.c-ok{color:#3aab7b}
+.b-lo{background:#e05c5c}.b-mid{background:#e09a3a}.b-ok{background:#3aab7b}
 
-/* ultimo giorno: card grid */
-.last-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px}
-.lcard{background:#f4f3f0;border-radius:6px;padding:12px 10px}
-.lcard .lk{font-size:10px;color:#888780;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
-.lcard .lv{font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1}
-.lcard .lu{font-size:10px;color:#888780;margin-top:2px}
-.lcard .lpct{font-size:11px;margin-top:4px;font-weight:700}
-.lbar{height:3px;background:#e0ddd8;border-radius:2px;margin-top:6px;overflow:hidden}
-.lfill{height:100%;border-radius:2px}
+/* tabella micro */
+.micro-hdr{display:grid;grid-template-columns:90px 1fr 40px 80px;gap:0;padding:0 0 8px;border-bottom:1px solid #f0f0f0;margin-bottom:4px}
+.micro-hdr span{font-size:9px;color:#bbb;text-transform:uppercase;letter-spacing:.06em}
+.micro-hdr span:not(:first-child){text-align:right}
+.micro-row{display:grid;grid-template-columns:90px 1fr 40px 80px;align-items:center;padding:5px 0;border-bottom:1px solid #f9f9f9}
+.micro-row:last-child{border-bottom:none}
+.micro-sep{border-top:1px solid #e0e0e0;margin-top:4px;padding-top:8px}
+.micro-label{font-size:11px;color:#444}
+.micro-bar-wrap{height:3px;background:#f0f0f0;border-radius:2px;margin:0 8px;overflow:hidden}
+.micro-bar{height:100%;border-radius:2px}
+.micro-pct{font-size:11px;font-weight:700;text-align:right}
+.micro-val{font-size:11px;color:#666;text-align:right}
 
-/* grafico */
-.tabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:12px}
-.tab{padding:4px 12px;border:1px solid #d3d1c7;border-radius:20px;font-size:11px;cursor:pointer;color:#888780;background:transparent;font-family:inherit;letter-spacing:.03em}
-.tab.on{background:#1a1916;color:#f4f3f0;border-color:#1a1916}
-.cwrap{position:relative;width:100%;height:200px}
+/* griglia calendario */
+.cal-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.cal-table{border-collapse:collapse;min-width:520px;width:100%}
+.cal-table th{font-size:9px;color:#2d2d2d;font-weight:700;padding:8px 5px;text-align:center;border-bottom:1px solid #f0f0f0;white-space:nowrap}
+.cal-table th.nutrient-col{text-align:left;color:#bbb;font-weight:400;letter-spacing:.06em;text-transform:uppercase;min-width:85px;padding-left:0}
+.cal-table td{padding:4px 4px;text-align:center;border-bottom:1px solid #f9f9f9}
+.cal-table td.nutrient-col{font-size:11px;color:#444;text-align:left;padding:6px 8px 6px 0;white-space:nowrap}
+.cal-table tr.group-sep td{border-top:1px solid #e0e0e0}
+.cal-chip{color:#fff;font-size:10px;font-weight:700;padding:3px 4px;border-radius:3px;display:inline-block;min-width:34px;text-align:center}
+.cal-scroll-hint{padding:8px 0 2px;font-size:9px;color:#bbb}
 
-/* footer */
-footer{text-align:center;font-size:11px;color:#888780;padding:20px;letter-spacing:.03em}
+/* tabella 7gg vs storico */
+.cmp-hdr{display:grid;grid-template-columns:90px 1fr 48px 56px 32px;gap:0;padding:0 0 8px;border-bottom:1px solid #f0f0f0;margin-bottom:4px}
+.cmp-hdr span{font-size:9px;color:#bbb;text-transform:uppercase;letter-spacing:.06em}
+.cmp-hdr span:not(:first-child){text-align:right}
+.cmp-row{display:grid;grid-template-columns:90px 1fr 48px 56px 32px;align-items:center;padding:5px 0;border-bottom:1px solid #f9f9f9}
+.cmp-row:last-child{border-bottom:none}
+.cmp-sep{border-top:1px solid #e0e0e0;margin-top:4px;padding-top:8px}
+.cmp-label{font-size:11px;color:#444}
+.cmp-bar-wrap{height:3px;background:#f0f0f0;border-radius:2px;margin:0 8px;overflow:hidden}
+.cmp-bar{height:100%;border-radius:2px}
+.cmp-7gg{font-size:11px;font-weight:700;text-align:right}
+.cmp-all{font-size:11px;color:#999;text-align:right}
+.trend-box{display:inline-block;color:#fff;font-size:11px;font-weight:700;padding:2px 5px;border-radius:3px}
 
-/* mobile */
-@media(max-width:520px){
-  .ntbl-hdr,.nrow{grid-template-columns:90px 1fr 50px 50px 40px}
-  .last-grid{grid-template-columns:repeat(2,1fr)}
+footer{text-align:center;font-size:10px;color:#bbb;padding:20px;letter-spacing:.04em}
+
+@media(max-width:480px){
+  .macro-grid{grid-template-columns:repeat(2,1fr)}
+  .micro-hdr,.micro-row{grid-template-columns:80px 1fr 36px 72px}
+  .cmp-hdr,.cmp-row{grid-template-columns:80px 1fr 44px 50px 30px}
 }
 </style>
 </head>
@@ -97,59 +114,64 @@ footer{text-align:center;font-size:11px;color:#888780;padding:20px;letter-spacin
 </header>
 <main>
   <div id="setup">
-    <h2>CONNETTI AL TUO GOOGLE SHEET</h2>
+    <h2>Connetti al tuo Google Sheet</h2>
     <p>Incolla l'URL del tuo Apps Script (Web App URL)</p>
     <div class="irow">
       <input id="apiurl" type="url" placeholder="https://script.google.com/macros/s/...">
-      <button class="cbtn" onclick="connect()">CONNETTI</button>
+      <button class="cbtn" onclick="connect()">Connetti</button>
     </div>
   </div>
   <div id="loading"><div class="spin"></div>Caricamento dati…</div>
   <div id="errmsg"></div>
   <div id="dash">
 
-    <!-- SEZIONE 1: ultimo giorno -->
+    <!-- SEZ 1: ultimo giorno -->
     <div class="sec">
       <div class="sec-hdr">
         <span class="sec-title">Ultimo giorno registrato</span>
-        <span class="sec-sub" id="last-date"></span>
+        <span class="date-box" id="last-date">—</span>
       </div>
       <div class="sec-body">
-        <div class="last-grid" id="last-macro"></div>
-        <div style="margin-top:12px;padding-top:12px;border-top:1px solid #f4f3f0">
-          <div style="font-size:10px;color:#888780;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Micronutrienti</div>
-          <div id="last-micro"></div>
+        <div class="macro-grid" id="macro-grid"></div>
+        <div class="micro-hdr">
+          <span>nutriente</span>
+          <span style="text-align:left;padding-left:8px"></span>
+          <span>%</span>
+          <span>valore</span>
         </div>
+        <div id="micro-rows"></div>
       </div>
     </div>
 
-    <!-- SEZIONE 2: confronto 7gg vs storico -->
+    <!-- SEZ 2: calendario 7gg -->
+    <div class="sec">
+      <div class="sec-hdr">
+        <span class="sec-title">Ultimi 7 giorni</span>
+        <span class="sec-sub">% vs target</span>
+      </div>
+      <div class="sec-body" style="padding:12px 16px">
+        <div class="cal-wrap">
+          <table class="cal-table" id="cal-table"></table>
+        </div>
+        <div class="cal-scroll-hint">← scorri per vedere tutti i giorni</div>
+      </div>
+    </div>
+
+    <!-- SEZ 3: media 7gg vs storico -->
     <div class="sec">
       <div class="sec-hdr">
         <span class="sec-title">Media 7 giorni vs storico</span>
         <span class="sec-sub" id="ndays-sub"></span>
       </div>
       <div class="sec-body">
-        <div class="ntbl-hdr">
-          <span>Nutriente</span>
-          <span style="text-align:left;padding-left:8px">Barra</span>
-          <span>7 gg</span>
-          <span>Storico</span>
-          <span>Trend</span>
+        <div class="cmp-hdr">
+          <span>nutriente</span>
+          <span style="text-align:left;padding-left:8px"></span>
+          <span>7gg/tgt</span>
+          <span>st/tgt</span>
+          <span>trend</span>
         </div>
-        <div id="comp-rows"></div>
-      </div>
-    </div>
-
-    <!-- SEZIONE 3: storico -->
-    <div class="sec">
-      <div class="sec-hdr">
-        <span class="sec-title">Andamento storico</span>
-        <span class="sec-sub">% vs target</span>
-      </div>
-      <div class="sec-body">
-        <div class="tabs" id="chart-tabs"></div>
-        <div class="cwrap"><canvas id="tc" role="img" aria-label="Andamento storico nutriente in % vs target"></canvas></div>
+        <div id="cmp-rows"></div>
       </div>
     </div>
 
@@ -157,27 +179,26 @@ footer{text-align:center;font-size:11px;color:#888780;padding:20px;letter-spacin
 </main>
 <footer id="foot"></footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
-let chart=null, cache=null, chartMetric='kcal';
+const MACRO  = ['kcal','prot','carb','fat','fiber'];
+const MICRO  = ['calcium','vitD','vitK2','magnesium','iron','vitC','selenium','omega3'];
+const MICRO_SEP = ['iron'];
+const ORDER  = [...MACRO, ...MICRO];
 
-const MACRO = ['kcal','prot','carb','fat','fiber'];
-const MICRO = ['calcium','vitD','vitK2','magnesium','iron','vitC','selenium','omega3'];
-const GROUP_SEP = ['calcium','iron'];
+let cache = null;
 
-function gurl(){try{return localStorage.getItem('napi2')||''}catch(e){return''}}
-function surl(u){try{localStorage.setItem('napi2',u)}catch(e){}}
+function gurl(){try{return localStorage.getItem('napi3')||''}catch(e){return''}}
+function surl(u){try{localStorage.setItem('napi3',u)}catch(e){}}
 function $(i){return document.getElementById(i)}
 function show(i){$(i).style.display='block'}
 function hide(i){$(i).style.display='none'}
-function fmt(v,d){return d===undefined?Math.round(v*10)/10:v.toFixed(d)}
+function fmt(v){return Math.round(v*10)/10}
 
-function pctColor(p){
-  if(p===null)return{c:'',b:''};
-  if(p<60)return{c:'c-lo',b:'b-lo'};
-  if(p<90)return{c:'c-mid',b:'b-mid'};
-  if(p<=110)return{c:'c-ok',b:'b-ok'};
-  return{c:'c-hi',b:'b-hi'};
+function semaphore(pct){
+  if(pct===null||pct===undefined)return{c:'',b:''};
+  if(pct<60)return{c:'c-lo',b:'b-lo'};
+  if(pct<90)return{c:'c-mid',b:'b-mid'};
+  return{c:'c-ok',b:'b-ok'};
 }
 
 window.addEventListener('load',()=>{
@@ -187,7 +208,7 @@ window.addEventListener('load',()=>{
 
 function connect(){
   const u=$('apiurl').value.trim();
-  if(!u){showErr('Inserisci l\'URL.');return;}
+  if(!u)return;
   surl(u);loadData();
 }
 
@@ -204,7 +225,8 @@ async function loadData(){
     setStatus(true,'aggiornato '+fmtT(d.generated));
     $('rbtn').style.display='inline-block';
   }catch(e){
-    showErr('Errore: '+e.message+'<br>Verifica URL e autorizzazioni script.');
+    $('errmsg').innerHTML='Errore: '+e.message;
+    show('errmsg');
     setStatus(false,'errore');
     show('setup');
   }finally{hide('loading');}
@@ -212,112 +234,124 @@ async function loadData(){
 
 function render(d){
   renderLastDay(d);
+  renderCalendar(d);
   renderComparison(d);
-  renderChartTabs(d);
   $('last-date').textContent=fmtDate(d.lastDate);
   $('ndays-sub').textContent=d.nDays+' giorni totali';
   $('foot').textContent='DIARIO NUTRIZIONALE · '+d.nDays+' giorni · ultimo: '+d.lastDate;
   show('dash');
-  setTimeout(()=>renderChart(d,chartMetric),100);
 }
 
 function renderLastDay(d){
-  const ld=d.lastDay, tgt=d.targets;
+  const ld=d.lastDay, tgt=d.targets, lbl=d.labels, unt=d.units;
 
-  // macro cards
-  $('last-macro').innerHTML=MACRO.map(k=>{
-    const v=ld[k]||0, t=tgt[k], u=d.units[k];
+  // macro boxes
+  $('macro-grid').innerHTML=MACRO.map(k=>{
+    const v=ld[k]||0, t=tgt[k];
     const pct=t?Math.round(v/t*100):null;
-    const {c,b}=pctColor(pct);
-    return`<div class="lcard">
-      <div class="lk">${d.labels[k]}</div>
-      <div class="lv ${c}">${fmt(v)}</div>
-      <div class="lu">${u}${t?' / '+t:''}</div>
-      ${pct!==null?`<div class="lpct ${c}">${pct}%</div><div class="lbar"><div class="lfill ${b}" style="width:${Math.min(pct,100)}%"></div></div>`:''}
+    const {c,b}=semaphore(pct);
+    return`<div class="mbox">
+      <div class="mbox-label">${lbl[k]} · ${unt[k]}</div>
+      <div class="mbox-val ${c}">${fmt(v)}</div>
+      <div class="mbox-bar"><div class="mbox-fill ${b}" style="width:${pct?Math.min(pct,100):0}%"></div></div>
+      <div class="mbox-pct ${c}">${pct!==null?pct+'%':'—'}</div>
     </div>`;
   }).join('');
 
   // micro rows
-  $('last-micro').innerHTML=MICRO.map((k,i)=>{
-    const v=ld[k]||0, t=tgt[k], u=d.units[k];
+  $('micro-rows').innerHTML=MICRO.map((k,i)=>{
+    const v=ld[k]||0, t=tgt[k];
     const pct=t?Math.round(v/t*100):null;
-    const {c,b}=pctColor(pct);
+    const {c,b}=semaphore(pct);
+    const sep=MICRO_SEP.includes(k)?'micro-sep':'';
     const isOmega=k==='omega3';
-    const label=d.labels[k]+(isOmega?' (mm4)':'');
-    return`<div style="display:flex;align-items:center;gap:8px;padding:4px 0;border-bottom:1px solid #f4f3f0${k==='calcium'&&i>0?';border-top:1px solid #d3d1c7;margin-top:4px;padding-top:8px':''}">
-      <span style="width:100px;font-size:11px;color:#444441">${label}</span>
-      <div style="flex:1;height:3px;background:#f4f3f0;border-radius:2px;overflow:hidden"><div class="lfill ${b}" style="width:${pct!==null?Math.min(pct,100):0}%"></div></div>
-      <span style="width:60px;text-align:right;font-size:11px;font-weight:700" class="${c}">${fmt(v)} ${u}</span>
-      ${pct!==null?`<span style="width:36px;text-align:right;font-size:11px;color:#888780">${pct}%</span>`:''}
+    return`<div class="micro-row ${sep}">
+      <span class="micro-label">${lbl[k]}${isOmega?' <span style="font-size:9px;color:#bbb">mm4</span>':''}</span>
+      <div class="micro-bar-wrap"><div class="micro-bar ${b}" style="width:${pct?Math.min(pct,100):0}%"></div></div>
+      <span class="micro-pct ${c}">${pct!==null?pct+'%':'—'}</span>
+      <span class="micro-val">${fmt(v)} ${d.units[k]}</span>
     </div>`;
   }).join('');
+}
+
+function renderCalendar(d){
+  const last7=d.daily.slice(-7);
+  const tgt=d.targets, lbl=d.labels;
+
+  // header: giorni
+  let thead=`<thead><tr><th class="nutrient-col">nutriente</th>`;
+  last7.forEach(day=>{thead+=`<th>${fmtDateShort(day.date)}</th>`;});
+  thead+=`</tr></thead>`;
+
+  // corpo: macro + micro separati
+  let tbody='<tbody>';
+  const allRows=[
+    {keys:MACRO, sep:false},
+    {keys:MICRO, sep:true}
+  ];
+
+  allRows.forEach(({keys,sep})=>{
+    keys.forEach((k,i)=>{
+      const isSep = sep && i===0;
+      const isOmega=k==='omega3';
+      tbody+=`<tr${isSep?' class="group-sep"':''}>`;
+      tbody+=`<td class="nutrient-col">${lbl[k]}${isOmega?' <span style="font-size:9px;color:#bbb">mm4</span>':''}</td>`;
+      last7.forEach(day=>{
+        const v=day[k]||0, t=tgt[k];
+        const pct=t?Math.round(v/t*100):null;
+        const {b}=semaphore(pct);
+        tbody+=`<td><span class="cal-chip ${b}">${pct!==null?pct+'%':'—'}</span></td>`;
+      });
+      tbody+='</tr>';
+    });
+  });
+  tbody+='</tbody>';
+
+  $('cal-table').innerHTML=thead+tbody;
 }
 
 function renderComparison(d){
-  const order=d.nutrientOrder||Object.keys(d.comparison);
-  $('comp-rows').innerHTML=order.map((k,i)=>{
+  const lbl=d.labels;
+  $('cmp-rows').innerHTML=ORDER.map((k,i)=>{
     const c=d.comparison[k];
     if(!c)return'';
-    const {c:c7,b:b7}=pctColor(c.pct7);
-    const {c:ca}=pctColor(c.pctAll);
-    const trend=c.trend==='up'?'↑':c.trend==='down'?'↓':'—';
-    const tc=c.trend==='up'?'c-ok':c.trend==='down'?'c-lo':'';
-    const sep=GROUP_SEP.includes(k)?'group-sep':'';
-    const note=c.isOmega3mm4?' <span style="font-size:9px;color:#888780">(mm4)</span>':'';
-    return`<div class="nrow ${sep}">
-      <span class="nlabel">${c.label}${note}</span>
-      <div class="nbar-wrap"><div class="nbar ${b7}" style="width:${c.pct7!==null?Math.min(c.pct7,100):0}%"></div></div>
-      <span class="nval ${c7}">${c.pct7!==null?c.pct7+'%':'—'}</span>
-      <span class="npct ${ca}">${c.pctAll!==null?c.pctAll+'%':'—'}</span>
-      <span class="ntrend ${tc}">${trend}</span>
+    const {c:c7,b:b7}=semaphore(c.pct7);
+    const {c:ca}=semaphore(c.pctAll);
+    const sep=(k==='calcium'&&i>0)||(k==='iron')?'cmp-sep':'';
+    const isOmega=k==='omega3';
+
+    let trendBox='';
+    if(c.trend==='up') trendBox=`<span class="trend-box b-ok">↑</span>`;
+    else if(c.trend==='down') trendBox=`<span class="trend-box b-lo">↓</span>`;
+    else trendBox=`<span class="trend-box" style="background:#bbb">—</span>`;
+
+    return`<div class="cmp-row ${sep}">
+      <span class="cmp-label">${c.label}${isOmega?' <span style="font-size:9px;color:#bbb">mm4</span>':''}</span>
+      <div class="cmp-bar-wrap"><div class="cmp-bar ${b7}" style="width:${c.pct7?Math.min(c.pct7,100):0}%"></div></div>
+      <span class="cmp-7gg ${c7}">${c.pct7!==null?c.pct7+'%':'—'}</span>
+      <span class="cmp-all ${ca}">${c.pctAll!==null?c.pctAll+'%':'—'}</span>
+      <div style="display:flex;justify-content:flex-end">${trendBox}</div>
     </div>`;
   }).join('');
-}
-
-function renderChartTabs(d){
-  const order=d.nutrientOrder||[];
-  $('chart-tabs').innerHTML=order.map(k=>{
-    const lbl=d.labels[k]||(d.comparison[k]&&d.comparison[k].label)||k;
-    return`<button class="tab${k===chartMetric?' on':''}" onclick="renderChart(cache,'${k}')">${lbl}</button>`;
-  }).join('');
-}
-
-function renderChart(d,m){
-  chartMetric=m;
-  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t.textContent.trim()===(d.labels[m]||(d.comparison[m]&&d.comparison[m].label)||m)));
-  const tgt=d.targets[m];
-  const daily=d.daily.slice(-60);
-  const labels=daily.map(r=>r.date.slice(5));
-  const vals=daily.map(r=>tgt&&r[m]!=null?Math.round(r[m]/tgt*100):null);
-  if(chart){chart.destroy();chart=null;}
-  const ctx=$('tc').getContext('2d');
-  chart=new Chart(ctx,{
-    type:'line',
-    data:{labels,datasets:[
-      {label:'% target',data:vals,borderColor:'#1d9e75',backgroundColor:'rgba(29,158,117,0.07)',fill:true,tension:.3,pointRadius:2,borderWidth:1.5,spanGaps:true},
-      {label:'100%',data:daily.map(()=>100),borderColor:'rgba(186,117,23,0.4)',borderDash:[4,4],borderWidth:1,pointRadius:0,fill:false}
-    ]},
-    options:{
-      responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>(ctx.datasetIndex===0?ctx.parsed.y+'% vs target':'target 100%')}}},
-      scales:{
-        x:{grid:{display:false},ticks:{maxTicksLimit:8,font:{size:10},color:'#888780',fontFamily:'Courier New'}},
-        y:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{size:10},color:'#888780',callback:v=>v+'%'},min:0}
-      }
-    }
-  });
 }
 
 function fmtDate(s){
   if(!s)return'';
   try{
     const [y,m,dd]=s.split('-');
-    const months=['gen','feb','mar','apr','mag','giu','lug','ago','set','ott','nov','dic'];
+    const months=['GEN','FEB','MAR','APR','MAG','GIU','LUG','AGO','SET','OTT','NOV','DIC'];
     return dd+' '+months[parseInt(m)-1]+' '+y;
   }catch(e){return s;}
 }
+function fmtDateShort(s){
+  if(!s)return'';
+  try{
+    const [,m,dd]=s.split('-');
+    const months=['gen','feb','mar','apr','mag','giu','lug','ago','set','ott','nov','dic'];
+    return dd+' '+months[parseInt(m)-1];
+  }catch(e){return s;}
+}
 function fmtT(iso){try{return new Date(iso).toLocaleTimeString('it-IT',{hour:'2-digit',minute:'2-digit'})}catch(e){return''}}
-function showErr(m){$('errmsg').innerHTML=m;show('errmsg');}
 function setStatus(ok,msg){$('sdot').className='dot'+(ok?'':' off');$('stxt').textContent=msg;}
 </script>
 </body>
