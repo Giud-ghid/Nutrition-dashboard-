@@ -241,7 +241,7 @@ function renderLastDay(d){
     const pct=tgt?Math.round(v/tgt.value*100):null;
     const zone=calcZone(pct,tgt);
     const {c,b}=zoneClass(zone);
-    return`<div class="mbox${k==='fiber'?' mbox-fiber':''}>
+    return`<div class="mbox${k==='fiber'?' mbox-fiber':''}">
       <div class="mbox-label">${lbl[k]} · ${unt[k]}</div>
       <div class="mbox-val ${c}">${fmt(v)}</div>
       <div class="mbox-bar"><div class="mbox-fill ${b}" style="width:${pct?Math.min(pct,100):0}%"></div></div>
