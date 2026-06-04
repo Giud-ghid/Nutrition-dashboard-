@@ -39,6 +39,7 @@ main{max-width:720px;margin:0 auto;padding:20px 16px}
 .sec{background:#fff;border:0.5px solid #e0e0e0;border-radius:8px;margin-bottom:14px;overflow:hidden}
 .sec-hdr{background:#2d2d2d;border-bottom:none;padding:10px 16px;display:flex;align-items:center;justify-content:space-between}
 .sec-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff}
+.sec-sub{font-size:10px;color:#888}
 .date-box{background:#fff;color:#2d2d2d;font-size:11px;font-weight:700;padding:3px 10px;border-radius:4px;letter-spacing:.05em;text-transform:uppercase}
 .sec-body{padding:12px}
 
@@ -50,6 +51,17 @@ main{max-width:720px;margin:0 auto;padding:20px 16px}
 /* COLORI SEMAFORO */
 .c-lo{color:#e05c5c}.c-mid{color:#e09a3a}.c-ok{color:#3aab7b}.c-hi{color:#e09a3a}
 .b-lo{background:#e05c5c}.b-mid{background:#e09a3a}.b-ok{background:#3aab7b}.b-hi{background:#e09a3a}
+
+/* CALENDARIO */
+.cal-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.cal-tbl{border-collapse:collapse;width:100%}
+.cal-tbl th{font-size:9px;color:#2d2d2d;font-weight:700;padding:7px 4px;text-align:center;border-bottom:1px solid #f0f0f0;white-space:nowrap;background:#fafafa}
+.cal-tbl th.nc{text-align:left;color:#bbb;font-weight:400;letter-spacing:.06em;text-transform:uppercase;min-width:110px;padding-left:0;position:sticky;left:0;background:#fafafa;z-index:2}
+.cal-tbl td{padding:3px 3px;text-align:center;border-bottom:1px solid #f9f9f9;background:#fafafa}
+.cal-tbl td.nc{font-size:11px;color:#444;text-align:left;padding:5px 4px 5px 0;white-space:nowrap;position:sticky;left:0;background:#fafafa;z-index:1;display:flex;align-items:center;gap:4px}
+.cal-tbl tr.gsep td{border-top:1px solid #e0e0e0}
+.chip{color:#fff;font-size:10px;font-weight:700;padding:3px 4px;border-radius:3px;display:inline-block;min-width:36px;text-align:center}
+.cal-hint{padding:6px 0 2px;font-size:9px;color:#bbb}
 
 /* BADGE OBS */
 .obs-badge{background:#7aa3d4;color:#fff;font-size:8px;font-weight:700;padding:1px 5px;border-radius:3px;letter-spacing:.06em;text-transform:uppercase;vertical-align:middle;margin-left:4px}
@@ -118,6 +130,17 @@ footer{text-align:center;font-size:10px;color:#bbb;padding:20px;letter-spacing:.
       </div>
       <div class="sec-body" id="block1-body">
         <!-- sotto-blocchi renderizzati da JS -->
+      </div>
+    </div>
+
+    <!-- BLOCCO 2: ULTIMI 7 GIORNI -->
+    <div class="sec" id="block2">
+      <div class="sec-hdr">
+        <span class="sec-title">Ultimi 7 giorni</span>
+        <span class="sec-sub">% vs target</span>
+      </div>
+      <div class="sec-body" id="block2-body">
+        <!-- matrici renderizzate da JS -->
       </div>
     </div>
 
@@ -197,6 +220,7 @@ async function loadData(){
 function render(d){
   $('last-date').textContent=fmtDate(d.lastDate);
   renderBlock1(d);
+  renderBlock2(d);
   $('foot').textContent='DIARIO NUTRIZIONALE · '+d.nDays+' giorni · ultimo: '+d.lastDate;
   show('dash');
 }
@@ -296,6 +320,96 @@ function renderWaterBlock(w){
     </div>
     ${mancano?`<div style="padding:2px 0 0 92px">${mancano}</div>`:''}
   </div>`;
+}
+
+// ── BLOCCO 2 — Ultimi 7 giorni ───────────────────────────────────────────────
+function renderBlock2(d){
+  const body = $('block2-body');
+  const last7 = d.daily.slice(-7);
+  let html = '';
+
+  for(const group of d.groupOrder){
+    const members = d.groupMembers[group];
+    if(!members||!members.length) continue;
+
+    // Per hydration usiamo waterData
+    if(group==='hydration'){
+      html += renderCalGroup('Idratazione', ['water'], last7, d, true);
+      continue;
+    }
+
+    const groupLabels = {
+      macro:'Macronutrienti',
+      bone:'Salute ossea',
+      antioxidant:'Antiossidanti & metabolismo',
+      'B-group':'Vitamine gruppo B',
+    };
+    const label = groupLabels[group] || group;
+    html += renderCalGroup(label, members, last7, d, false);
+  }
+
+  body.innerHTML = html;
+}
+
+function renderCalGroup(title, keys, last7, d, isWater){
+  const tgts = d.targets;
+
+  // Header giorni
+  let thead = `<thead><tr><th class="nc">nutriente</th>`;
+  last7.forEach(day => {
+    thead += `<th>${fmtShort(day.date)}</th>`;
+  });
+  thead += `</tr></thead>`;
+
+  let tbody = '<tbody>';
+  keys.forEach((k, i) => {
+    const tgt = tgts[k];
+    if(!tgt && !isWater) return;
+
+    const isOmega = k === 'omega3';
+    const isObs   = tgt && tgt.phase === 'observation';
+    const label   = tgt ? tgt.label : k;
+
+    const nameHtml = label
+      + (isOmega ? ' <span style="font-size:9px;color:#bbb">mm4</span>' : '')
+      + (isObs   ? ' <span class="obs-badge">OBS</span>' : '');
+
+    tbody += `<tr>`;
+    tbody += `<td class="nc">${nameHtml}</td>`;
+
+    last7.forEach(day => {
+      let pct, zone;
+      if(isWater){
+        // acqua: calcolata da waterData del giorno (approssimata dalla media)
+        // usiamo daily pct se disponibile
+        pct  = day['water_pct'] !== undefined ? day['water_pct'] : null;
+        zone = day['water_zone'] || null;
+      } else {
+        pct  = day[k+'_pct']  !== undefined ? day[k+'_pct']  : null;
+        zone = day[k+'_zone'] || null;
+      }
+      const{b} = zCls(zone);
+      tbody += `<td><span class="chip ${b}">${pct!==null?pct+'%':'—'}</span></td>`;
+    });
+    tbody += `</tr>`;
+  });
+  tbody += '</tbody>';
+
+  return `<div class="sub-block">
+    <div class="sub-title">${title}</div>
+    <div class="cal-wrap">
+      <table class="cal-tbl">
+        ${thead}
+        ${tbody}
+      </table>
+    </div>
+    <div class="cal-hint">← scorri per vedere tutti i giorni</div>
+  </div>`;
+}
+
+function fmtShort(s){
+  if(!s)return'';
+  try{const[,m,dd]=s.split('-');const mo=['gen','feb','mar','apr','mag','giu','lug','ago','set','ott','nov','dic'];return dd+'<br>'+mo[parseInt(m)-1];}catch(e){return s;}
 }
 
 function fmtDate(s){
