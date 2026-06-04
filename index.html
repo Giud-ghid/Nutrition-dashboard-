@@ -37,9 +37,9 @@ main{max-width:720px;margin:0 auto;padding:20px 16px}
 
 /* SEZIONE */
 .sec{background:#fff;border:0.5px solid #e0e0e0;border-radius:8px;margin-bottom:14px;overflow:hidden}
-.sec-hdr{background:#f5f5f5;border-bottom:1px solid #e0e0e0;padding:10px 16px;display:flex;align-items:center;justify-content:space-between}
-.sec-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#2d2d2d}
-.date-box{background:#2d2d2d;color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:4px;letter-spacing:.05em;text-transform:uppercase}
+.sec-hdr{background:#2d2d2d;border-bottom:none;padding:10px 16px;display:flex;align-items:center;justify-content:space-between}
+.sec-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff}
+.date-box{background:#fff;color:#2d2d2d;font-size:11px;font-weight:700;padding:3px 10px;border-radius:4px;letter-spacing:.05em;text-transform:uppercase}
 .sec-body{padding:12px}
 
 /* SOTTO-BLOCCO */
@@ -67,12 +67,12 @@ main{max-width:720px;margin:0 auto;padding:20px 16px}
 .mbox-pct{font-size:10px;font-weight:700;margin-top:4px}
 
 /* TABELLA NUTRIENTI — sotto-blocchi B/C/D */
-.nutr-tbl-hdr{display:grid;grid-template-columns:110px 1fr 40px 80px;padding:0 0 6px;border-bottom:1px solid #f0f0f0;margin-bottom:4px}
+.nutr-tbl-hdr{display:grid;grid-template-columns:130px 1fr 40px 75px;padding:0 0 6px;border-bottom:1px solid #f0f0f0;margin-bottom:4px}
 .nutr-tbl-hdr span{font-size:9px;color:#bbb;text-transform:uppercase;letter-spacing:.06em}
 .nutr-tbl-hdr span:nth-child(3),.nutr-tbl-hdr span:nth-child(4){text-align:right}
-.nutr-row{display:grid;grid-template-columns:110px 1fr 40px 80px;align-items:center;padding:5px 0;border-bottom:1px solid #f9f9f9}
+.nutr-row{display:grid;grid-template-columns:130px 1fr 40px 75px;align-items:center;padding:5px 0;border-bottom:1px solid #f9f9f9}
 .nutr-row:last-child{border-bottom:none}
-.nutr-name{font-size:11px;color:#444;display:flex;align-items:center;flex-wrap:wrap;gap:2px}
+.nutr-name{font-size:11px;color:#444;display:flex;align-items:center;flex-wrap:nowrap;gap:4px;white-space:nowrap;overflow:hidden}
 .nutr-bar-wrap{height:3px;background:#f0f0f0;border-radius:2px;margin:0 8px;overflow:hidden}
 .nutr-bar{height:100%;border-radius:2px}
 .nutr-pct{font-size:11px;font-weight:700;text-align:right}
@@ -82,7 +82,7 @@ main{max-width:720px;margin:0 auto;padding:20px 16px}
 .mm4-tag{font-size:9px;color:#bbb;margin-left:3px}
 
 @media(max-width:479px){
-  .nutr-tbl-hdr,.nutr-row{grid-template-columns:90px 1fr 36px 70px}
+  .nutr-tbl-hdr,.nutr-row{grid-template-columns:105px 1fr 34px 62px}
 }
 
 footer{text-align:center;font-size:10px;color:#bbb;padding:20px;letter-spacing:.04em}
