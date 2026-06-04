@@ -9,6 +9,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:#f5f5f5;font-family:'JetBrains Mono',monospace;color:#2d2d2d;min-height:100vh;font-size:13px}
 
+/* HEADER */
 header{background:#2d2d2d;color:#fff;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
 header h1{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
 .meta{font-size:11px;color:#999;display:flex;align-items:center;gap:10px}
@@ -20,6 +21,7 @@ header h1{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:upp
 
 main{max-width:720px;margin:0 auto;padding:20px 16px}
 
+/* SETUP */
 #setup{background:#fff;border:0.5px solid #e0e0e0;border-radius:8px;padding:28px 20px;text-align:center;margin-bottom:20px}
 #setup h2{font-size:13px;font-weight:700;margin-bottom:8px;letter-spacing:.08em;text-transform:uppercase}
 #setup p{color:#999;font-size:12px;margin-bottom:20px;line-height:1.6}
@@ -33,77 +35,55 @@ main{max-width:720px;margin:0 auto;padding:20px 16px}
 #errmsg{display:none;background:#fdf0f0;border:0.5px solid #e05c5c;border-radius:6px;padding:12px 16px;margin-bottom:16px;color:#c0392b;font-size:12px;line-height:1.6}
 #dash{display:none}
 
+/* SEZIONE */
 .sec{background:#fff;border:0.5px solid #e0e0e0;border-radius:8px;margin-bottom:14px;overflow:hidden}
 .sec-hdr{background:#f5f5f5;border-bottom:1px solid #e0e0e0;padding:10px 16px;display:flex;align-items:center;justify-content:space-between}
 .sec-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#2d2d2d}
 .date-box{background:#2d2d2d;color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:4px;letter-spacing:.05em;text-transform:uppercase}
-.sec-sub{font-size:10px;color:#999}
 .sec-body{padding:16px}
 
-/* semafori */
+/* SOTTO-BLOCCO */
+.sub-block{margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid #f0f0f0}
+.sub-block:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
+.sub-title{font-size:9px;color:#bbb;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+
+/* COLORI SEMAFORO */
 .c-lo{color:#e05c5c}.c-mid{color:#e09a3a}.c-ok{color:#3aab7b}.c-hi{color:#e09a3a}
 .b-lo{background:#e05c5c}.b-mid{background:#e09a3a}.b-ok{background:#3aab7b}.b-hi{background:#e09a3a}
 
-/* macro boxes */
-.macro-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:16px}
+/* BADGE OBS */
+.obs-badge{background:#7aa3d4;color:#fff;font-size:8px;font-weight:700;padding:1px 5px;border-radius:3px;letter-spacing:.06em;text-transform:uppercase;vertical-align:middle;margin-left:4px}
+
+/* MACRO CARDS — sotto-blocco A */
+.macro-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
 @media(min-width:480px){.macro-grid{grid-template-columns:repeat(3,1fr)}}
 @media(min-width:600px){.macro-grid{grid-template-columns:repeat(5,1fr)}}
 @media(max-width:479px){.mbox-fiber{grid-column:1/-1}}
 .mbox{background:#fff;border:0.5px solid #e0e0e0;border-radius:8px;padding:12px}
-.mbox-label{font-size:9px;color:#999;letter-spacing:.05em;margin-bottom:6px}
+.mbox-label{font-size:9px;color:#999;letter-spacing:.04em;margin-bottom:6px}
 .mbox-val{font-size:26px;font-weight:700;letter-spacing:-.02em;line-height:1}
 .mbox-bar{height:3px;background:#f0f0f0;border-radius:2px;margin-top:10px}
 .mbox-fill{height:100%;border-radius:2px}
 .mbox-pct{font-size:10px;font-weight:700;margin-top:4px}
 
-/* micro table */
-.micro-hdr{display:grid;grid-template-columns:90px 1fr 40px 80px;padding:0 0 8px;border-bottom:1px solid #f0f0f0;margin-bottom:4px}
-.micro-hdr span{font-size:9px;color:#bbb;text-transform:uppercase;letter-spacing:.06em}
-.micro-hdr span:nth-child(3),.micro-hdr span:nth-child(4){text-align:right}
-.micro-row{display:grid;grid-template-columns:90px 1fr 40px 80px;align-items:center;padding:5px 0;border-bottom:1px solid #f9f9f9}
-.micro-row:last-child{border-bottom:none}
-.micro-sep{border-top:1px solid #e0e0e0;margin-top:4px;padding-top:8px}
-.micro-bar-wrap{height:3px;background:#f0f0f0;border-radius:2px;margin:0 8px;overflow:hidden}
-.micro-bar{height:100%;border-radius:2px}
-.micro-pct{font-size:11px;font-weight:700;text-align:right}
-.micro-val{font-size:11px;color:#666;text-align:right}
+/* TABELLA NUTRIENTI — sotto-blocchi B/C/D */
+.nutr-tbl-hdr{display:grid;grid-template-columns:110px 1fr 40px 80px;padding:0 0 6px;border-bottom:1px solid #f0f0f0;margin-bottom:4px}
+.nutr-tbl-hdr span{font-size:9px;color:#bbb;text-transform:uppercase;letter-spacing:.06em}
+.nutr-tbl-hdr span:nth-child(3),.nutr-tbl-hdr span:nth-child(4){text-align:right}
+.nutr-row{display:grid;grid-template-columns:110px 1fr 40px 80px;align-items:center;padding:5px 0;border-bottom:1px solid #f9f9f9}
+.nutr-row:last-child{border-bottom:none}
+.nutr-name{font-size:11px;color:#444;display:flex;align-items:center;flex-wrap:wrap;gap:2px}
+.nutr-bar-wrap{height:3px;background:#f0f0f0;border-radius:2px;margin:0 8px;overflow:hidden}
+.nutr-bar{height:100%;border-radius:2px}
+.nutr-pct{font-size:11px;font-weight:700;text-align:right}
+.nutr-val{font-size:11px;color:#666;text-align:right}
 
-/* monitor section */
-.monitor-sep{margin-top:12px;padding-top:12px;border-top:1px solid #dce8f5;background:#f7faff;margin-left:-16px;margin-right:-16px;padding-left:16px;padding-right:16px;padding-bottom:4px}
-.monitor-label{font-size:9px;color:#999;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
-.monitor-row{display:grid;grid-template-columns:90px 1fr 80px 50px;align-items:center;padding:5px 0;border-bottom:1px solid #edf3fb}
-.monitor-row:last-child{border-bottom:none}
-.monitor-bar-wrap{height:3px;background:#dce8f5;border-radius:2px;margin:0 8px;overflow:hidden}
-.monitor-bar{height:100%;border-radius:2px;background:#7aa3d4}
-.monitor-name{font-size:11px;color:#666}
-.monitor-val{font-size:11px;font-weight:700;color:#666;text-align:right}
-.monitor-tgt{font-size:10px;color:#bbb;text-align:right}
+/* NOTE mm4 */
+.mm4-tag{font-size:9px;color:#bbb;margin-left:3px}
 
-/* calendario */
-.cal-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
-.cal-tbl{border-collapse:collapse;min-width:520px;width:100%}
-.cal-tbl th{font-size:9px;color:#2d2d2d;font-weight:700;padding:8px 4px;text-align:center;border-bottom:1px solid #f0f0f0;white-space:nowrap}
-.cal-tbl th.nc{text-align:left;color:#bbb;font-weight:400;letter-spacing:.06em;text-transform:uppercase;min-width:85px;padding-left:0;position:sticky;left:0;background:#f5f5f5;z-index:2}
-.cal-tbl td{padding:3px 3px;text-align:center;border-bottom:1px solid #f9f9f9}
-.cal-tbl td.nc{font-size:11px;color:#444;text-align:left;padding:5px 8px 5px 0;white-space:nowrap;position:sticky;left:0;background:#fff;z-index:1}
-.cal-tbl tr.gsep td{border-top:1px solid #e0e0e0}
-.cal-tbl tr.msep td{border-top:1px solid #dce8f5}
-.cal-tbl tr.mrow td{background:#f7faff}
-.cal-tbl tr.mrow td.nc{background:#f7faff;color:#666}
-.chip{color:#fff;font-size:10px;font-weight:700;padding:3px 4px;border-radius:3px;display:inline-block;min-width:34px;text-align:center}
-.chip-mon{background:#7aa3d4}
-.cal-hint{padding:8px 0 2px;font-size:9px;color:#bbb}
-
-/* confronto 7gg */
-.cmp-hdr{display:grid;grid-template-columns:90px 1fr 48px 56px 32px;padding:0 0 8px;border-bottom:1px solid #f0f0f0;margin-bottom:4px}
-.cmp-hdr span{font-size:9px;color:#bbb;text-transform:uppercase;letter-spacing:.06em}
-.cmp-hdr span:nth-child(3),.cmp-hdr span:nth-child(4),.cmp-hdr span:nth-child(5){text-align:right}
-.cmp-row{display:grid;grid-template-columns:90px 1fr 48px 56px 32px;align-items:center;padding:5px 0;border-bottom:1px solid #f9f9f9}
-.cmp-row:last-child{border-bottom:none}
-.cmp-sep{border-top:1px solid #e0e0e0;margin-top:4px;padding-top:8px}
-.cmp-bar-wrap{height:3px;background:#f0f0f0;border-radius:2px;margin:0 8px;overflow:hidden}
-.cmp-bar{height:100%;border-radius:2px}
-.trend-box{display:inline-block;color:#fff;font-size:11px;font-weight:700;padding:2px 5px;border-radius:3px}
+@media(max-width:479px){
+  .nutr-tbl-hdr,.nutr-row{grid-template-columns:90px 1fr 36px 70px}
+}
 
 footer{text-align:center;font-size:10px;color:#bbb;padding:20px;letter-spacing:.04em}
 </style>
@@ -130,41 +110,14 @@ footer{text-align:center;font-size:10px;color:#bbb;padding:20px;letter-spacing:.
   <div id="errmsg"></div>
   <div id="dash">
 
-    <div class="sec">
+    <!-- BLOCCO 1: ULTIMO GIORNO -->
+    <div class="sec" id="block1">
       <div class="sec-hdr">
         <span class="sec-title">Ultimo giorno registrato</span>
         <span class="date-box" id="last-date">—</span>
       </div>
-      <div class="sec-body">
-        <div class="macro-grid" id="macro-grid"></div>
-        <div class="micro-hdr"><span>nutriente</span><span></span><span>%</span><span>valore</span></div>
-        <div id="micro-rows"></div>
-        <div id="monitor-section"></div>
-      </div>
-    </div>
-
-    <div class="sec">
-      <div class="sec-hdr">
-        <span class="sec-title">Ultimi 7 giorni</span>
-        <span class="sec-sub">% vs target</span>
-      </div>
-      <div class="sec-body" style="padding:12px 16px">
-        <div class="cal-wrap"><table class="cal-tbl" id="cal-tbl"></table></div>
-        <div class="cal-hint">← scorri per vedere tutti i giorni</div>
-      </div>
-    </div>
-
-    <div class="sec">
-      <div class="sec-hdr">
-        <span class="sec-title">Media 7 giorni vs storico</span>
-        <span class="sec-sub" id="ndays-sub"></span>
-      </div>
-      <div class="sec-body">
-        <div class="cmp-hdr">
-          <span>nutriente</span><span></span>
-          <span>7gg/tgt</span><span>st/tgt</span><span>trend</span>
-        </div>
-        <div id="cmp-rows"></div>
+      <div class="sec-body" id="block1-body">
+        <!-- sotto-blocchi renderizzati da JS -->
       </div>
     </div>
 
@@ -173,28 +126,28 @@ footer{text-align:center;font-size:10px;color:#bbb;padding:20px;letter-spacing:.
 <footer id="foot"></footer>
 
 <script>
-const MACRO     = ['kcal','prot','carb','fat','fiber'];
-const MICRO     = ['calcium','vitD','vitK2','magnesium','iron','vitC','selenium','omega3'];
-const MICRO_SEP = ['iron'];
 let cache = null;
 
-function gurl(){try{return localStorage.getItem('napi5')||''}catch(e){return''}}
-function surl(u){try{localStorage.setItem('napi5',u)}catch(e){}}
+function gurl(){try{return localStorage.getItem('napi6')||''}catch(e){return''}}
+function surl(u){try{localStorage.setItem('napi6',u)}catch(e){}}
 function $(i){return document.getElementById(i)}
 function show(i){$(i).style.display='block'}
 function hide(i){$(i).style.display='none'}
 function fmt(v){return Math.round(v*10)/10}
 
-function zoneClass(zone){
+// Zona → classi CSS
+function zCls(zone){
   if(!zone)return{c:'',b:''};
   if(zone==='lo')return{c:'c-lo',b:'b-lo'};
   if(zone==='mid_lo'||zone==='mid_hi')return{c:'c-mid',b:'b-mid'};
   if(zone==='ok')return{c:'c-ok',b:'b-ok'};
   if(zone==='hi')return{c:'c-hi',b:'b-hi'};
+  if(zone==='monitor')return{c:'c-mid',b:'b-mid'};
   return{c:'',b:''};
 }
 
-function calcZone(pct,tgt){
+// Calcola zona lato client
+function calcZone(pct, tgt){
   if(pct===null||!tgt)return null;
   if(tgt.type==='monitor')return'monitor';
   const{type,low,optLow,optHigh,high}=tgt;
@@ -204,6 +157,13 @@ function calcZone(pct,tgt){
   if(type==='minimum')return'ok';
   if(pct<=high)return'mid_hi';
   return'hi';
+}
+
+// Badge OBS
+function obsBadge(phase){
+  return phase==='observation'
+    ? '<span class="obs-badge">OBS</span>'
+    : '';
 }
 
 window.addEventListener('load',()=>{
@@ -235,152 +195,112 @@ async function loadData(){
 }
 
 function render(d){
-  renderLastDay(d);
-  renderCalendar(d);
-  renderComparison(d);
   $('last-date').textContent=fmtDate(d.lastDate);
-  $('ndays-sub').textContent=d.nDays+' giorni totali';
+  renderBlock1(d);
   $('foot').textContent='DIARIO NUTRIZIONALE · '+d.nDays+' giorni · ultimo: '+d.lastDate;
   show('dash');
 }
 
-function renderLastDay(d){
-  const ld=d.lastDay,tgts=d.targets,lbl=d.labels,unt=d.units;
+// ── BLOCCO 1 ──────────────────────────────────────────────────────────────────
+function renderBlock1(d){
+  const body = $('block1-body');
+  let html = '';
 
-  $('macro-grid').innerHTML=MACRO.map(k=>{
-    const v=ld[k]||0,tgt=tgts[k];
-    const pct=tgt?Math.round(v/tgt.value*100):null;
-    const zone=calcZone(pct,tgt);
-    const{c,b}=zoneClass(zone);
-    return`<div class="mbox${k==='fiber'?' mbox-fiber':''}">
-      <div class="mbox-label">${lbl[k]} · ${unt[k]}</div>
-      <div class="mbox-val ${c}">${fmt(v)}</div>
-      <div class="mbox-bar"><div class="mbox-fill ${b}" style="width:${pct?Math.min(pct,100):0}%"></div></div>
-      <div class="mbox-pct ${c}">${pct!==null?pct+'%':'—'}</div>
-    </div>`;
-  }).join('');
+  for(const group of d.groupOrder){
+    if(group==='hydration') continue; // gestito separatamente
+    const nutrients = d.lastDayByGroup[group];
+    if(!nutrients||!nutrients.length) continue;
 
-  $('micro-rows').innerHTML=MICRO.map(k=>{
-    const v=ld[k]||0,tgt=tgts[k];
-    const pct=tgt?Math.round(v/tgt.value*100):null;
-    const zone=calcZone(pct,tgt);
-    const{c,b}=zoneClass(zone);
-    const sep=MICRO_SEP.includes(k)?'micro-sep':'';
-    const isOmega=k==='omega3';
-    return`<div class="micro-row ${sep}">
-      <span style="font-size:11px;color:#444">${lbl[k]}${isOmega?' <span style="font-size:9px;color:#bbb">mm4</span>':''}</span>
-      <div class="micro-bar-wrap"><div class="micro-bar ${b}" style="width:${pct?Math.min(pct,100):0}%"></div></div>
-      <span class="micro-pct ${c}">${pct!==null?pct+'%':'—'}</span>
-      <span class="micro-val">${fmt(v)} ${unt[k]}</span>
-    </div>`;
-  }).join('');
-
-  // monitor section
-  const mon=d.monitorData;
-  const monOrder=d.monitorOrder||[];
-  if(monOrder.length){
-    $('monitor-section').innerHTML=`
-      <div class="monitor-sep">
-        <div class="monitor-label">in monitoraggio</div>
-        ${monOrder.map(k=>{
-          const m=mon[k];if(!m)return'';
-          const pct=m.target?Math.round(m.lastVal/m.target*100):null;
-          const barW=pct?Math.min(pct,100):0;
-          return`<div class="monitor-row">
-            <span class="monitor-name">${m.label}</span>
-            <div class="monitor-bar-wrap"><div class="monitor-bar" style="width:${barW}%"></div></div>
-            <span class="monitor-val">${fmt(m.lastVal)} ${m.unit}</span>
-            <span class="monitor-tgt">/ ${m.target}</span>
-          </div>`;
-        }).join('')}
-      </div>`;
+    if(group==='macro'){
+      html += renderMacroBlock(nutrients, d.targets);
+    } else {
+      html += renderNutrientBlock(group, nutrients);
+    }
   }
+
+  // Idratazione in fondo
+  if(d.waterData){
+    html += renderWaterBlock(d.waterData);
+  }
+
+  body.innerHTML = html;
 }
 
-function renderCalendar(d){
-  const last7=d.daily.slice(-7);
-  const tgts=d.targets,lbl=d.labels;
-  const monOrder=d.monitorOrder||[];
-  const mon=d.monitorData||{};
-
-  let thead=`<thead><tr><th class="nc">nutriente</th>`;
-  last7.forEach(day=>{thead+=`<th>${fmtShort(day.date)}</th>`;});
-  thead+=`</tr></thead>`;
-
-  let tbody='<tbody>';
-  // macro
-  MACRO.forEach((k,i)=>{
-    const tgt=tgts[k];
-    tbody+=`<tr>`;
-    tbody+=`<td class="nc">${lbl[k]}</td>`;
-    last7.forEach(day=>{
-      const pct=tgt?Math.round((day[k]||0)/tgt.value*100):null;
-      const zone=calcZone(pct,tgt);
-      const{b}=zoneClass(zone);
-      tbody+=`<td><span class="chip ${b}">${pct!==null?pct+'%':'—'}</span></td>`;
-    });
-    tbody+='</tr>';
-  });
-  // micro
-  MICRO.forEach((k,i)=>{
-    const tgt=tgts[k];
-    const isOmega=k==='omega3';
-    tbody+=`<tr${i===0?' class="gsep"':''}>`;
-    tbody+=`<td class="nc">${lbl[k]}${isOmega?' <span style="font-size:9px;color:#bbb">mm4</span>':''}</td>`;
-    last7.forEach(day=>{
-      const pct=tgt?Math.round((day[k]||0)/tgt.value*100):null;
-      const zone=calcZone(pct,tgt);
-      const{b}=zoneClass(zone);
-      tbody+=`<td><span class="chip ${b}">${pct!==null?pct+'%':'—'}</span></td>`;
-    });
-    tbody+='</tr>';
-  });
-  // monitor
-  if(monOrder.length){
-    monOrder.forEach((k,i)=>{
-      const m=mon[k];if(!m)return;
-      tbody+=`<tr class="mrow${i===0?' msep':''}">`;
-      tbody+=`<td class="nc">${m.label}</td>`;
-      m.daily7.forEach(day=>{
-        const pct=day.pct;
-        tbody+=`<td><span class="chip chip-mon">${pct!==null?pct+'%':'—'}</span></td>`;
-      });
-      tbody+='</tr>';
-    });
-  }
-  tbody+='</tbody>';
-  $('cal-tbl').innerHTML=thead+tbody;
-}
-
-function renderComparison(d){
-  const lbl=d.labels;
-  $('cmp-rows').innerHTML=[...MACRO,...MICRO].map((k,i)=>{
-    const c=d.comparison[k];if(!c)return'';
-    const{c:c7,b:b7}=zoneClass(c.zone7);
-    const{c:ca}=zoneClass(c.zoneAll);
-    const isSep=(k==='calcium'||k==='iron');
-    const isOmega=k==='omega3';
-    let trendHtml='';
-    if(c.trend==='up') trendHtml=`<span class="trend-box b-ok">↑</span>`;
-    else if(c.trend==='down') trendHtml=`<span class="trend-box b-lo">↓</span>`;
-    else trendHtml=`<span class="trend-box" style="background:#bbb">—</span>`;
-    return`<div class="cmp-row${isSep?' cmp-sep':''}">
-      <span style="font-size:11px;color:#444">${c.label}${isOmega?' <span style="font-size:9px;color:#bbb">mm4</span>':''}</span>
-      <div class="cmp-bar-wrap"><div class="cmp-bar ${b7}" style="width:${c.pct7?Math.min(c.pct7,100):0}%"></div></div>
-      <span style="font-size:11px;font-weight:700;text-align:right" class="${c7}">${c.pct7!==null?c.pct7+'%':'—'}</span>
-      <span style="font-size:11px;text-align:right" class="${ca}">${c.pctAll!==null?c.pctAll+'%':'—'}</span>
-      <div style="display:flex;justify-content:flex-end">${trendHtml}</div>
+// Sotto-blocco A — Macro (card)
+function renderMacroBlock(nutrients, targets){
+  const cards = nutrients.map(n=>{
+    const{c,b}=zCls(n.zone);
+    const isFiber = n.key==='fiber';
+    return`<div class="mbox${isFiber?' mbox-fiber':''}">
+      <div class="mbox-label">${n.label} · ${n.unit}</div>
+      <div class="mbox-val ${c}">${fmt(n.val)}</div>
+      <div class="mbox-bar"><div class="mbox-fill ${b}" style="width:${n.pct?Math.min(n.pct,100):0}%"></div></div>
+      <div class="mbox-pct ${c}">${n.pct!==null?n.pct+'%':'—'}</div>
     </div>`;
   }).join('');
+
+  return`<div class="sub-block">
+    <div class="sub-title">Macronutrienti</div>
+    <div class="macro-grid">${cards}</div>
+  </div>`;
+}
+
+// Sotto-blocchi B/C/D — tabella nutrienti
+function renderNutrientBlock(group, nutrients){
+  const groupLabels = {
+    bone:'Salute ossea',
+    antioxidant:'Antiossidanti & metabolismo',
+    'B-group':'Vitamine gruppo B'
+  };
+  const label = groupLabels[group] || group;
+
+  const rows = nutrients.map(n=>{
+    const{c,b}=zCls(n.zone);
+    const nameHtml = `${n.label}`
+      +(n.isOmega3mm4?'<span class="mm4-tag">mm4</span>':'')
+      +obsBadge(n.phase);
+    const barW = n.pct ? Math.min(n.pct,100) : 0;
+    return`<div class="nutr-row">
+      <span class="nutr-name">${nameHtml}</span>
+      <div class="nutr-bar-wrap"><div class="nutr-bar ${b}" style="width:${barW}%"></div></div>
+      <span class="nutr-pct ${c}">${n.pct!==null?n.pct+'%':'—'}</span>
+      <span class="nutr-val">${fmt(n.val)} ${n.unit}</span>
+    </div>`;
+  }).join('');
+
+  return`<div class="sub-block">
+    <div class="sub-title">${label}</div>
+    <div class="nutr-tbl-hdr">
+      <span>nutriente</span><span></span><span>%</span><span>valore</span>
+    </div>
+    ${rows}
+  </div>`;
+}
+
+// Idratazione
+function renderWaterBlock(w){
+  const{c,b}=zCls(w.zone);
+  const barW = w.pct ? Math.min(w.pct,100) : 0;
+  const mancano = w.target && w.val < w.target
+    ? `<span style="font-size:10px;color:#bbb;margin-left:8px">mancano ${Math.round(w.target-w.val)} ${w.unit}</span>`
+    : '';
+  return`<div class="sub-block">
+    <div class="sub-title">Idratazione</div>
+    <div style="display:flex;align-items:center;gap:12px;padding:4px 0">
+      <span style="font-size:11px;color:#444;min-width:80px">${w.label}</span>
+      <div style="flex:1;height:3px;background:#f0f0f0;border-radius:2px;overflow:hidden">
+        <div class="${b}" style="height:100%;width:${barW}%;border-radius:2px"></div>
+      </div>
+      <span class="nutr-pct ${c}" style="min-width:36px;text-align:right">${w.pct!==null?w.pct+'%':'—'}</span>
+      <span class="nutr-val" style="min-width:70px;text-align:right">${fmt(w.val)} ${w.unit}</span>
+    </div>
+    ${mancano?`<div style="padding:2px 0 0 92px">${mancano}</div>`:''}
+  </div>`;
 }
 
 function fmtDate(s){
   if(!s)return'';
   try{const[y,m,dd]=s.split('-');const mo=['GEN','FEB','MAR','APR','MAG','GIU','LUG','AGO','SET','OTT','NOV','DIC'];return dd+' '+mo[parseInt(m)-1]+' '+y;}catch(e){return s;}
-}
-function fmtShort(s){
-  if(!s)return'';
-  try{const[,m,dd]=s.split('-');const mo=['gen','feb','mar','apr','mag','giu','lug','ago','set','ott','nov','dic'];return dd+'\n'+mo[parseInt(m)-1];}catch(e){return s;}
 }
 function fmtT(iso){try{return new Date(iso).toLocaleTimeString('it-IT',{hour:'2-digit',minute:'2-digit'})}catch(e){return''}}
 function setStatus(ok,msg){$('sdot').className='dot'+(ok?'':' off');$('stxt').textContent=msg;}
