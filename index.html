@@ -61,7 +61,31 @@ main{max-width:720px;margin:0 auto;padding:20px 16px}
 .cal-tbl td.nc{font-size:11px;color:#444;text-align:left;padding:5px 4px 5px 0;white-space:nowrap;position:sticky;left:0;background:#fafafa;z-index:1;display:flex;align-items:center;gap:4px}
 .cal-tbl tr.gsep td{border-top:1px solid #e0e0e0}
 .chip{color:#fff;font-size:10px;font-weight:700;padding:3px 4px;border-radius:3px;display:inline-block;min-width:36px;text-align:center}
+.chip-partial{background:#fff !important;font-size:10px;font-weight:700;padding:2px 3px;border-radius:3px;display:inline-block;min-width:36px;text-align:center;border:1.5px solid}
+.chip-partial.b-lo{border-color:#e05c5c;color:#e05c5c}
+.chip-partial.b-mid{border-color:#e09a3a;color:#e09a3a}
+.chip-partial.b-ok{border-color:#3aab7b;color:#3aab7b}
+.chip-partial.b-hi{border-color:#e09a3a;color:#e09a3a}
 .cal-hint{padding:6px 0 2px;font-size:9px;color:#bbb}
+
+/* QUALITÀ LOG */
+.quality-badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;padding:2px 8px;border-radius:3px;font-weight:700;letter-spacing:.04em}
+.q-completo{background:#e8f5ee;color:#0f6e56}
+.q-parziale{background:#faeeda;color:#854f0b}
+.q-assente{background:#fdf0f0;color:#c0392b}
+.q-nd{background:#f0f0f0;color:#999}
+.quality-dot{width:6px;height:6px;border-radius:50%;display:inline-block}
+.qd-completo{background:#3aab7b}
+.qd-parziale{background:#e09a3a}
+.qd-assente{background:#e05c5c}
+.qd-nd{background:#bbb}
+
+/* STATS QUALITÀ */
+.quality-stats{display:flex;gap:16px;flex-wrap:wrap;padding:10px 14px;background:#fafafa;border-left:3px solid #d0d0d0;border-radius:0 6px 6px 0;margin-bottom:8px}
+.qs-item{display:flex;flex-direction:column;gap:2px}
+.qs-label{font-size:9px;color:#999;text-transform:uppercase;letter-spacing:.06em}
+.qs-val{font-size:16px;font-weight:700;color:#2d2d2d}
+.qs-sub{font-size:10px;color:#999}
 
 /* BADGE OBS */
 .obs-badge{background:#7aa3d4;color:#fff;font-size:8px;font-weight:700;padding:1px 5px;border-radius:3px;letter-spacing:.06em;text-transform:uppercase;vertical-align:middle;margin-left:4px}
@@ -219,10 +243,65 @@ async function loadData(){
 
 function render(d){
   $('last-date').textContent=fmtDate(d.lastDate);
+  renderQualityBadge(d);
   renderBlock1(d);
   renderBlock2(d);
   $('foot').textContent='DIARIO NUTRIZIONALE · '+d.nDays+' giorni · ultimo: '+d.lastDate;
   show('dash');
+}
+
+function renderQualityBadge(d){
+  // Badge qualità nell'header blocco 1
+  const lastQ = d.daily.length ? d.daily[d.daily.length-1].log_quality : 'non dichiarato';
+  const badgeMap = {
+    'completo':       {cls:'q-completo', dot:'qd-completo', label:'completo'},
+    'parziale':       {cls:'q-parziale', dot:'qd-parziale', label:'parziale'},
+    'assente':        {cls:'q-assente',  dot:'qd-assente',  label:'assente'},
+    'non dichiarato': {cls:'q-nd',       dot:'qd-nd',       label:'n.d.'}
+  };
+  const b = badgeMap[lastQ] || badgeMap['non dichiarato'];
+  const badge = `<span class="quality-badge ${b.cls}"><span class="quality-dot ${b.dot}"></span>${b.label}</span>`;
+
+  // Inserisci badge accanto alla data
+  const hdr = document.querySelector('#block1 .sec-hdr');
+  if(hdr){
+    const existing = hdr.querySelector('.quality-badge');
+    if(existing) existing.remove();
+    const dateBox = hdr.querySelector('.date-box');
+    if(dateBox) dateBox.insertAdjacentHTML('beforebegin', badge);
+  }
+
+  // Stats qualità sopra blocco 1
+  const qs = d.qualityStats;
+  const statsHtml = `<div class="quality-stats">
+    <div class="qs-item">
+      <span class="qs-label">Giorni totali</span>
+      <span class="qs-val">${qs.total}</span>
+    </div>
+    <div class="qs-item">
+      <span class="qs-label">Completi</span>
+      <span class="qs-val" style="color:#3aab7b">${qs.completo}</span>
+      <span class="qs-sub">${qs.pct_completo}%</span>
+    </div>
+    <div class="qs-item">
+      <span class="qs-label">Parziali</span>
+      <span class="qs-val" style="color:#e09a3a">${qs.parziale}</span>
+    </div>
+    <div class="qs-item">
+      <span class="qs-label">Assenti</span>
+      <span class="qs-val" style="color:#e05c5c">${qs.assente}</span>
+    </div>
+    <div class="qs-item">
+      <span class="qs-label">Medie su</span>
+      <span class="qs-val">${d.daysCompletiCount}</span>
+      <span class="qs-sub">giorni completi</span>
+    </div>
+  </div>`;
+
+  const block1 = $('block1');
+  const existing = document.querySelector('.quality-stats');
+  if(existing) existing.remove();
+  block1.insertAdjacentHTML('beforebegin', statsHtml);
 }
 
 // ── BLOCCO 1 ──────────────────────────────────────────────────────────────────
@@ -354,7 +433,11 @@ function renderBlock2(d){
 function renderCalGroup(title, keys, last7, d, isWater){
   const tgts = d.targets;
 
-  // Header giorni
+  // Header giorni con indicatore qualità
+  const qualityMap = {};
+  if(d.last7WithQuality){
+    d.last7WithQuality.forEach(q => { qualityMap[q.date] = q.log_quality; });
+  }
   let thead = `<thead><tr><th class="nc">nutriente</th>`;
   last7.forEach(day => {
     thead += `<th>${fmtShort(day.date)}</th>`;
@@ -380,8 +463,6 @@ function renderCalGroup(title, keys, last7, d, isWater){
     last7.forEach(day => {
       let pct, zone;
       if(isWater){
-        // acqua: calcolata da waterData del giorno (approssimata dalla media)
-        // usiamo daily pct se disponibile
         pct  = day['water_pct'] !== undefined ? day['water_pct'] : null;
         zone = day['water_zone'] || null;
       } else {
@@ -389,7 +470,10 @@ function renderCalGroup(title, keys, last7, d, isWater){
         zone = day[k+'_zone'] || null;
       }
       const{b} = zCls(zone);
-      tbody += `<td><span class="chip ${b}">${pct!==null?pct+'%':'—'}</span></td>`;
+      const dayQ = qualityMap[day.date] || 'non dichiarato';
+      const isPartial = dayQ === 'parziale';
+      const chipCls = isPartial ? `chip-partial ${b}` : `chip ${b}`;
+      tbody += `<td><span class="${chipCls}">${pct!==null?pct+'%':'—'}</span></td>`;
     });
     tbody += `</tr>`;
   });
