@@ -256,6 +256,7 @@ function renderQualityBadge(d){
   const badgeMap = {
     'completo':       {cls:'q-completo', dot:'qd-completo', label:'completo'},
     'parziale':       {cls:'q-parziale', dot:'qd-parziale', label:'parziale'},
+    'in corso':       {cls:'q-parziale', dot:'qd-parziale', label:'in corso'},
     'assente':        {cls:'q-assente',  dot:'qd-assente',  label:'assente'},
     'non dichiarato': {cls:'q-nd',       dot:'qd-nd',       label:'n.d.'}
   };
@@ -286,6 +287,10 @@ function renderQualityBadge(d){
     <div class="qs-item">
       <span class="qs-label">Parziali</span>
       <span class="qs-val" style="color:#e09a3a">${qs.parziale}</span>
+    </div>
+    <div class="qs-item">
+      <span class="qs-label">In corso</span>
+      <span class="qs-val" style="color:#7aa3d4">${qs.in_corso||0}</span>
     </div>
     <div class="qs-item">
       <span class="qs-label">Assenti</span>
@@ -471,7 +476,7 @@ function renderCalGroup(title, keys, last7, d, isWater){
       }
       const{b} = zCls(zone);
       const dayQ = qualityMap[day.date] || 'non dichiarato';
-      const isPartial = dayQ === 'parziale';
+      const isPartial = dayQ === 'parziale' || dayQ === 'in corso';
       const chipCls = isPartial ? `chip-partial ${b}` : `chip ${b}`;
       tbody += `<td><span class="${chipCls}">${pct!==null?pct+'%':'—'}</span></td>`;
     });
