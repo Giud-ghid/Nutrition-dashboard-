@@ -364,9 +364,12 @@ function renderNutrientBlock(group, nutrients){
 
   const rows = nutrients.map(n=>{
     const{c,b}=zCls(n.zone);
+    const mmTag = (n.isMovingAvg || n.isOmega3mm4)
+      ? '<span class="mm4-tag">mm'+(n.mmWindow || 4)+'</span>'
+      : '';
     const nameHtml = `${n.label}`
-      +(n.isOmega3mm4?'<span class="mm4-tag">mm4</span>':'')
-      +obsBadge(n.phase);
+      + mmTag
+      + obsBadge(n.phase);
     const barW = n.pct ? Math.min(n.pct,100) : 0;
     return`<div class="nutr-row">
       <span class="nutr-name">${nameHtml}</span>
@@ -455,11 +458,14 @@ function renderCalGroup(title, keys, last7, d, isWater){
     if(!tgt && !isWater) return;
 
     const isOmega = k === 'omega3';
+    const cmp     = d.comparison && d.comparison[k];
+    const isMM    = cmp ? (cmp.isMovingAvg || cmp.isOmega3mm4) : isOmega;
+    const mmWin   = cmp && cmp.mmWindow ? cmp.mmWindow : 4;
     const isObs   = tgt && tgt.phase === 'observation';
     const label   = tgt ? tgt.label : k;
 
     const nameHtml = label
-      + (isOmega ? ' <span style="font-size:9px;color:#bbb">mm4</span>' : '')
+      + (isMM ? ' <span style="font-size:9px;color:#bbb">mm'+mmWin+'</span>' : '')
       + (isObs   ? ' <span class="obs-badge">OBS</span>' : '');
 
     tbody += `<tr>`;
