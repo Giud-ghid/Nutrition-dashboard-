@@ -66,6 +66,7 @@ main{max-width:720px;margin:0 auto;padding:20px 16px}
 .chip-partial.b-mid{border-color:#e09a3a;color:#e09a3a}
 .chip-partial.b-ok{border-color:#3aab7b;color:#3aab7b}
 .chip-partial.b-hi{border-color:#e09a3a;color:#e09a3a}
+.chip-absent{background:#f0f0f0;color:#999;font-size:10px;font-weight:700;padding:3px 4px;border-radius:3px;display:inline-block;min-width:36px;text-align:center}
 .cal-hint{padding:6px 0 2px;font-size:9px;color:#bbb}
 
 /* QUALITÀ LOG */
@@ -483,8 +484,15 @@ function renderCalGroup(title, keys, last7, d, isWater){
       const{b} = zCls(zone);
       const dayQ = qualityMap[day.date] || 'non dichiarato';
       const isPartial = dayQ === 'parziale' || dayQ === 'in corso';
-      const chipCls = isPartial ? `chip-partial ${b}` : `chip ${b}`;
-      tbody += `<td><span class="${chipCls}">${pct!==null?pct+'%':'—'}</span></td>`;
+      const isAbsent  = dayQ === 'assente';
+      // Per i nutrienti in media mobile (omega3/vitD) il valore resta significativo
+      // anche nei giorni assenti, quindi non applichiamo lo stile "assente".
+      if(isAbsent && !isMM){
+        tbody += `<td><span class="chip-absent">${pct!==null?pct+'%':'0%'}</span></td>`;
+      } else {
+        const chipCls = isPartial ? `chip-partial ${b}` : `chip ${b}`;
+        tbody += `<td><span class="${chipCls}">${pct!==null?pct+'%':'—'}</span></td>`;
+      }
     });
     tbody += `</tr>`;
   });
